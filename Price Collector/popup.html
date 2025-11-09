@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Price Collector</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🛒 Price Collector</h1>
+    </header>
+
+    <div class="current-product" id="currentProduct">
+      <h3>Current Product</h3>
+      <div id="productInfo" class="product-info">
+        <p class="no-data">Navigate to a product page</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="collectBtn" class="btn btn-primary" disabled>
+        <span>📋</span> Collect This Product
+      </button>
+      <button id="refreshBtn" class="btn btn-secondary">
+        <span>🔄</span> Refresh
+      </button>
+    </div>
+
+    <div class="manual-entry-section">
+      <button id="manualEntryBtn" class="btn btn-info">
+        <span>✏️</span> Manual Entry
+      </button>
+    </div>
+
+    <!-- Manual Entry Form (hidden by default) -->
+    <div id="manualEntryForm" class="manual-entry-form" style="display: none;">
+      <h3>Manual Product Entry</h3>
+      <form id="productForm">
+        <div class="form-group">
+          <label for="manualTitle">Product Title *</label>
+          <input type="text" id="manualTitle" required placeholder="Enter product title">
+        </div>
+        
+        <div class="form-group">
+          <label for="manualPrice">Price *</label>
+          <input type="text" id="manualPrice" required placeholder="29.99">
+        </div>
+        
+        <div class="form-group">
+          <label for="manualCurrency">Currency</label>
+          <select id="manualCurrency">
+            <option value="$">$ (USD)</option>
+            <option value="£">£ (GBP)</option>
+            <option value="€">€ (EUR)</option>
+            <option value="¥">¥ (JPY/CNY)</option>
+            <option value="₹">₹ (INR)</option>
+            <option value="CA$">CA$ (CAD)</option>
+            <option value="A$">A$ (AUD)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="manualSite">Site Name</label>
+          <input type="text" id="manualSite" placeholder="e.g., eBay, AliExpress">
+        </div>
+        
+        <div class="form-group">
+          <label for="manualUrl">Product URL</label>
+          <input type="url" id="manualUrl" placeholder="https://...">
+        </div>
+        
+        <div class="form-group">
+          <label for="manualNotes">Notes (Optional)</label>
+          <textarea id="manualNotes" placeholder="Additional notes..."></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">
+            <span>💾</span> Save Product
+          </button>
+          <button type="button" id="cancelManualEntry" class="btn btn-secondary">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="settings">
+      <h3>Settings</h3>
+      <div class="setting-item">
+        <label for="exportFormat">Export Format:</label>
+        <select id="exportFormat">
+          <option value="csv">CSV</option>
+          <option value="json">JSON</option>
+        </select>
+      </div>
+      
+      <div class="setting-item database-toggle">
+        <label>
+          <input type="checkbox" id="enableDatabase">
+          Enable Database Export
+        </label>
+      </div>
+      
+      <div id="databaseSettings" class="database-settings" style="display: none;">
+        <div class="setting-item">
+          <label for="apiEndpoint">API Endpoint:</label>
+          <input type="text" id="apiEndpoint" placeholder="http://localhost:3000/api">
+        </div>
+        
+        <div class="setting-item">
+          <label for="apiKey">API Key:</label>
+          <input type="password" id="apiKey" placeholder="Your API key">
+        </div>
+        
+        <button id="testConnection" class="btn btn-secondary" style="width: 100%; margin-top: 10px;">
+          <span>🔌</span> Test Connection
+        </button>
+      </div>
+    </div>
+
+    <div class="collection-info">
+      <div class="stat">
+        <span class="stat-label">Collected Products:</span>
+        <span id="productCount" class="stat-value">0</span>
+      </div>
+    </div>
+
+    <div class="export-actions">
+      <button id="exportBtn" class="btn btn-success">
+        <span>💾</span> Export Data
+      </button>
+      <button id="exportToDbBtn" class="btn btn-info" style="display: none;">
+        <span>🗄️</span> Export to Database
+      </button>
+      <button id="clearBtn" class="btn btn-danger">
+        <span>🗑️</span> Clear All Data
+      </button>
+    </div>
+
+    <footer>
+      <button id="viewDataBtn" class="btn-link">View Collected Data</button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
